@@ -1,37 +1,44 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Gummi.Models;
 
 namespace Gummi.Models
 {
-    public class GummiContext : DbContext
+    public class GummiDbContext : DbContext
     {
 
-        public GummiDbContext ()
-        {
-            
-        }
-
         public DbSet<Product> Products { get; set; }
-        public DbSet<GummiUsers> GummiUsers { get; set; }
+        public DbSet<GummiUser> GummiUsers { get; set; }
+
+        public GummiDbContext()
+        {
+
+        }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //    => optionsBuilder
         //        .UseMySql(@"Server=localhost;Port=8889;database=gummi;uid=root;pwd=root;");
 
         //protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //{
+        //    options.UseMySql(@"Server=localhost;Port=8889;database=gummi;uid=root;pwd=root;");
+        //}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            options.UseMySql(@"Server=localhost;Port=8889;database=gummi;uid=root;pwd=root;");
+            optionsBuilder.UseMySql(Startup.ConnectionString);
         }
 
-        public ToDoDbContext(DbContextOptions<ToDoDbContext> options)
-            : base(options)
+
+        public GummiDbContext(DbContextOptions<GummiDbContext> options) : base(options)
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

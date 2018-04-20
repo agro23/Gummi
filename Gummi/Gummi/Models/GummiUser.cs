@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GummiList.Models
+namespace Gummi.Models
 {
     [Table("GummiUsers")]
     public class GummiUser
